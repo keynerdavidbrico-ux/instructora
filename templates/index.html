@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ejercicios Python</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <main class="menu">
+        <div class="encabezado">
+            <span class="badge">Python + Flask + PostgreSQL + POO</span>
+            <h1>Ejercicios de Python</h1>
+            <p>Selecciona un ejercicio para comenzar.</p>
+        </div>
+
+        <a href="/ejercicio1" class="boton-menu">
+            <div class="icono">🔢</div>
+            <div>
+                <span>Ejercicio 1</span>
+                <small>Determinar si un número es par o impar</small>
+            </div>
+        </a>
+
+        <a href="/ejercicio2" class="boton-menu">
+            <div class="icono">✖️</div>
+            <div>
+                <span>Ejercicio 2</span>
+                <small>Generar la tabla de multiplicar del 1 al 10</small>
+            </div>
+        </a>
+
+        <a href="/ejercicio3" class="boton-menu">
+            <div class="icono">🎯</div>
+            <div>
+                <span>Ejercicio 3</span>
+                <small>Jugar a adivinar un número entre 1 y 100</small>
+            </div>
+        </a>
+
+        <div class="footer">Arquitectura orientada a objetos</div>
+    </main>
+</body>
+</html>
