@@ -1,203 +1,311 @@
-* {
+/* Diseño: hoja de cuaderno cuadriculado.
+   Los ejercicios son de matemática, así que la página parece papel de cuadros. */
+
+*, *::before, *::after {
     box-sizing: border-box;
 }
 
 :root {
-    --primary: #2563eb;
-    --primary-dark: #1d4ed8;
-    --secondary: #0f172a;
-    --background: #eef4ff;
-    --card: rgba(255, 255, 255, 0.96);
-    --text: #172033;
-    --muted: #64748b;
-    --border: #dbe4f0;
-    --success-bg: #ecfdf5;
+    --papel: #e6f0ee;
+    --cuadro: #c3d9d4;
+    --hoja: #fdfefd;
+    --tinta: #14213d;
+    --tinta-suave: #4a5a78;
+    --margen: #d6336c;
+    --resaltador: #ffe066;
+    --ok: #1f7a4d;
+    --ok-fondo: #dff5e8;
+    --aviso: #8a4b00;
+    --aviso-fondo: #fff1d6;
+    --linea: #b9cdc8;
+}
+
+html {
+    background: var(--papel);
 }
 
 body {
     margin: 0;
     min-height: 100vh;
-    padding: 30px 18px;
-    font-family: "Segoe UI", Arial, sans-serif;
-    color: var(--text);
-    background:
-        radial-gradient(circle at top left, #dbeafe 0, transparent 35%),
-        radial-gradient(circle at bottom right, #e0e7ff 0, transparent 35%),
-        var(--background);
+    padding: 40px 16px;
+    font-family: "IBM Plex Sans", "Segoe UI", Arial, sans-serif;
+    font-size: 17px;
+    line-height: 1.55;
+    color: var(--tinta);
+    background-color: var(--papel);
+    background-image:
+        linear-gradient(var(--cuadro) 1px, transparent 1px),
+        linear-gradient(90deg, var(--cuadro) 1px, transparent 1px);
+    background-size: 28px 28px;
 }
 
-.menu, .ejercicio {
-    width: min(100%, 620px);
-    margin: 5vh auto;
-    padding: 38px;
-    background: var(--card);
-    border: 1px solid rgba(255,255,255,.8);
-    border-radius: 24px;
-    box-shadow: 0 18px 50px rgba(30, 64, 175, .12);
+/* La hoja: papel blanco con la línea de margen roja del cuaderno */
+.hoja {
+    position: relative;
+    width: min(100%, 640px);
+    margin: 0 auto;
+    padding: 44px 40px 36px 72px;
+    background: var(--hoja);
+    border: 1px solid var(--linea);
+    border-radius: 6px;
+    box-shadow: 6px 8px 0 rgba(20, 33, 61, .10);
 }
 
-.encabezado {
-    text-align: center;
-    margin-bottom: 28px;
-}
-
-.badge {
-    display: inline-block;
-    padding: 7px 12px;
-    border-radius: 999px;
-    background: #dbeafe;
-    color: var(--primary-dark);
-    font-size: 13px;
-    font-weight: 700;
+.hoja::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 46px;
+    width: 2px;
+    background: var(--margen);
+    opacity: .55;
 }
 
 h1 {
-    margin: 12px 0 8px;
-    color: var(--secondary);
-}
-
-h2 {
-    margin-top: 10px;
-    color: var(--primary-dark);
+    margin: 0 0 8px;
+    font-family: "Bricolage Grotesque", "Segoe UI", Arial, sans-serif;
+    font-size: clamp(30px, 6vw, 42px);
+    line-height: 1.1;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: var(--tinta);
 }
 
 p {
-    color: var(--muted);
-    line-height: 1.6;
+    margin: 0 0 8px;
+    max-width: 52ch;
+    color: var(--tinta-suave);
 }
 
-.boton-menu {
+/* Menú */
+.portada {
+    margin-bottom: 28px;
+}
+
+.lista {
+    display: grid;
+    gap: 12px;
+}
+
+.item {
     display: flex;
     align-items: center;
-    gap: 15px;
-    margin-top: 14px;
-    padding: 18px;
+    gap: 18px;
+    padding: 14px 16px;
+    color: var(--tinta);
     text-decoration: none;
-    color: var(--text);
-    background: white;
-    border: 1px solid var(--border);
-    border-radius: 16px;
-    transition: .2s ease;
+    background: var(--hoja);
+    border: 2px solid var(--tinta);
+    border-radius: 6px;
+    transition: background-color .15s, box-shadow .15s, transform .15s;
 }
 
-.boton-menu:hover {
-    transform: translateY(-3px);
-    border-color: #93c5fd;
-    box-shadow: 0 10px 25px rgba(37, 99, 235, .12);
+.item:hover,
+.item:focus-visible {
+    background: var(--resaltador);
+    box-shadow: 4px 4px 0 var(--tinta);
+    transform: translate(-2px, -2px);
+    outline: none;
 }
 
-.icono {
-    width: 46px;
-    height: 46px;
-    display: grid;
-    place-items: center;
-    flex-shrink: 0;
-    border-radius: 13px;
-    background: #eff6ff;
-    font-size: 22px;
+.simbolo {
+    flex: 0 0 64px;
+    font-family: "Bricolage Grotesque", Arial, sans-serif;
+    font-size: 30px;
+    font-weight: 800;
+    line-height: 1;
+    text-align: center;
+    color: var(--margen);
 }
 
-.boton-menu span {
+.texto strong {
     display: block;
-    font-size: 17px;
-    font-weight: 750;
+    font-family: "Bricolage Grotesque", Arial, sans-serif;
+    font-size: 20px;
+    font-weight: 800;
 }
 
-.boton-menu small {
+.texto small {
     display: block;
-    margin-top: 4px;
-    color: var(--muted);
+    color: var(--tinta-suave);
+    font-size: 15px;
 }
 
+.item:hover .texto small,
+.item:focus-visible .texto small {
+    color: var(--tinta);
+}
+
+.pie {
+    margin-top: 30px;
+    color: var(--tinta-suave);
+    font-size: 14px;
+}
+
+/* Páginas de ejercicio */
 .volver {
     display: inline-block;
-    margin-bottom: 15px;
-    color: var(--primary-dark);
-    text-decoration: none;
-    font-weight: 700;
+    margin-bottom: 18px;
+    color: var(--tinta);
+    font-weight: 600;
+    text-decoration: underline;
+    text-decoration-color: var(--margen);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 4px;
+}
+
+.volver:hover,
+.volver:focus-visible {
+    background: var(--resaltador);
+    outline: none;
 }
 
 .formulario {
-    margin-top: 24px;
+    margin-top: 26px;
 }
 
 label {
     display: block;
-    margin-bottom: 8px;
-    font-weight: 700;
-}
-
-input {
-    width: 100%;
-    padding: 13px 15px;
-    border: 1px solid var(--border);
-    border-radius: 12px;
-    outline: none;
-    font-size: 16px;
-    transition: .2s;
-}
-
-input:focus {
-    border-color: #60a5fa;
-    box-shadow: 0 0 0 4px #dbeafe;
-}
-
-button {
-    width: 100%;
-    margin-top: 15px;
-    padding: 13px;
-    border: 0;
-    border-radius: 12px;
-    background: var(--primary);
-    color: white;
-    font-size: 16px;
-    font-weight: 700;
-    cursor: pointer;
-    transition: .2s;
-}
-
-button:hover {
-    background: var(--primary-dark);
-    transform: translateY(-1px);
-}
-
-.resultado {
-    margin-top: 22px;
-    padding: 16px;
-    border-left: 4px solid #22c55e;
-    border-radius: 12px;
-    background: var(--success-bg);
-    font-weight: 700;
-}
-
-.tabla {
-    margin-top: 22px;
-    padding: 18px;
-    border-radius: 16px;
-    background: #f8fafc;
-    border: 1px solid var(--border);
-}
-
-.fila {
-    padding: 11px;
-    margin-bottom: 7px;
-    background: white;
-    border: 1px solid #e2e8f0;
-    border-radius: 10px;
-    text-align: center;
+    margin-bottom: 6px;
     font-weight: 600;
 }
 
-.footer {
-    margin-top: 28px;
-    text-align: center;
-    color: var(--muted);
-    font-size: 13px;
+.campo {
+    display: flex;
+    gap: 10px;
+}
+
+input {
+    flex: 1;
+    min-width: 0;
+    padding: 12px 14px;
+    font: inherit;
+    font-size: 20px;
+    color: var(--tinta);
+    background: #fff;
+    border: 2px solid var(--tinta);
+    border-radius: 6px;
+}
+
+input:focus-visible {
+    outline: 3px solid var(--resaltador);
+    outline-offset: 1px;
+    box-shadow: 0 0 0 5px var(--tinta);
+}
+
+button {
+    padding: 12px 20px;
+    font: inherit;
+    font-weight: 600;
+    color: #fff;
+    background: var(--tinta);
+    border: 2px solid var(--tinta);
+    border-radius: 6px;
+    cursor: pointer;
+    transition: background-color .15s, color .15s;
+}
+
+button:hover,
+button:focus-visible {
+    background: var(--resaltador);
+    color: var(--tinta);
+    outline: none;
+}
+
+/* Resultados */
+.resultado {
+    margin-top: 24px;
+    padding: 16px 18px;
+    font-family: "Bricolage Grotesque", Arial, sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    background: var(--resaltador);
+    border: 2px solid var(--tinta);
+    border-radius: 6px;
+}
+
+.resultado small {
+    display: block;
+    margin-top: 6px;
+    font-family: "IBM Plex Sans", Arial, sans-serif;
+    font-size: 15px;
+    font-weight: 400;
+}
+
+.resultado.ganaste {
+    background: var(--ok-fondo);
+    border-color: var(--ok);
+    color: var(--ok);
+}
+
+.aviso {
+    margin-top: 24px;
+    padding: 12px 16px;
+    font-size: 15px;
+    color: var(--aviso);
+    background: var(--aviso-fondo);
+    border-left: 4px solid var(--aviso);
+    border-radius: 4px;
+}
+
+.aviso + .resultado,
+.aviso + .tabla {
+    margin-top: 12px;
+}
+
+.contador {
+    margin-top: 14px;
+    font-size: 15px;
+}
+
+/* Tabla de multiplicar: una línea de cuaderno por resultado */
+.tabla {
+    margin: 24px 0 0;
+    padding: 0;
+    list-style: none;
+    border: 2px solid var(--tinta);
+    border-radius: 6px;
+    background: #fff;
+}
+
+.tabla li {
+    padding: 9px 16px;
+    font-family: "Bricolage Grotesque", Arial, sans-serif;
+    font-size: 19px;
+    font-weight: 500;
+    border-bottom: 1px solid var(--linea);
+}
+
+.tabla li:last-child {
+    border-bottom: 0;
 }
 
 @media (max-width: 600px) {
-    .menu, .ejercicio {
-        padding: 25px;
-        margin: 2vh auto;
+    body {
+        padding: 18px 10px;
+    }
+
+    .hoja {
+        padding: 30px 20px 26px 40px;
+    }
+
+    .hoja::before {
+        left: 22px;
+    }
+
+    .campo {
+        flex-direction: column;
+    }
+
+    .simbolo {
+        flex-basis: 48px;
+        font-size: 24px;
+    }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * {
+        transition: none !important;
     }
 }

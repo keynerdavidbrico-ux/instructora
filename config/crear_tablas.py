@@ -1,8 +1,15 @@
+import os
+import sys
+
+# Permite ejecutar este archivo directamente (python config/crear_tablas.py)
+# sin el error "No module named 'config'".
+sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
 from config.database import Database
 
 
-def crear_tablas():
-    db = Database()
+def crear_tablas(db=None):
+    db = db or Database()
     conexion = db.conectar()
 
     try:
@@ -36,10 +43,10 @@ def crear_tablas():
             """)
 
         conexion.commit()
-        print("Tablas creadas correctamente.")
     finally:
         conexion.close()
 
 
 if __name__ == "__main__":
     crear_tablas()
+    print("Tablas creadas correctamente.")

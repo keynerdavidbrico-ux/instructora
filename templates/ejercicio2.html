@@ -1,31 +1,25 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejercicio 2 - Tabla de multiplicar</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <main class="ejercicio">
-        <a href="/" class="volver">← Volver al menú</a>
-        <span class="badge">Ejercicio 2</span>
-        <h1>Tabla de multiplicar</h1>
-        <p>Escribe un número y genera su tabla del 1 al 10.</p>
+{% extends "base.html" %}
+{% block titulo %}Tabla de multiplicar{% endblock %}
 
-        <form method="POST" class="formulario">
-            <label for="numero">Número:</label>
-            <input type="number" id="numero" name="numero" required>
+{% block contenido %}
+<main class="hoja">
+    <a href="/" class="volver">&larr; Volver a los ejercicios</a>
+    <h1>Tabla de multiplicar</h1>
+    <p>Escribe un número entero y genero su tabla del 1 al 10.</p>
+
+    <form method="POST" class="formulario">
+        <label for="numero">Número</label>
+        <div class="campo">
+            <input type="number" id="numero" name="numero" required autofocus>
             <button type="submit">Mostrar tabla</button>
-        </form>
-
-        
-        {% if tabla %}
-        <div class="tabla">
-            <h3>Resultado</h3>
-            {% for linea in tabla %}<div class="fila">{{ linea }}</div>{% endfor %}
         </div>
-        {% endif %}
-    </main>
-</body>
-</html>
+    </form>
+
+    {% if aviso %}<div class="aviso" role="alert">{{ aviso }}</div>{% endif %}
+    {% if tabla %}
+    <ol class="tabla" aria-label="Tabla de multiplicar">
+        {% for linea in tabla %}<li>{{ linea }}</li>{% endfor %}
+    </ol>
+    {% endif %}
+</main>
+{% endblock %}

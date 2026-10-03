@@ -1,44 +1,38 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejercicios Python</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <main class="menu">
-        <div class="encabezado">
-            <span class="badge">Python + Flask + PostgreSQL + POO</span>
-            <h1>Ejercicios de Python</h1>
-            <p>Selecciona un ejercicio para comenzar.</p>
-        </div>
+{% extends "base.html" %}
 
-        <a href="/ejercicio1" class="boton-menu">
-            <div class="icono">🔢</div>
-            <div>
-                <span>Ejercicio 1</span>
-                <small>Determinar si un número es par o impar</small>
-            </div>
+{% block contenido %}
+<main class="hoja">
+    <header class="portada">
+        <h1>Ejercicios de Python</h1>
+        <p>Tres ejercicios hechos con programación orientada a objetos. Elige uno para resolverlo.</p>
+    </header>
+
+    <nav class="lista" aria-label="Ejercicios">
+        <a href="/ejercicio1" class="item">
+            <span class="simbolo" aria-hidden="true">2|3</span>
+            <span class="texto">
+                <strong>Par o impar</strong>
+                <small>Escribe un número y mira de qué tipo es.</small>
+            </span>
         </a>
 
-        <a href="/ejercicio2" class="boton-menu">
-            <div class="icono">✖️</div>
-            <div>
-                <span>Ejercicio 2</span>
-                <small>Generar la tabla de multiplicar del 1 al 10</small>
-            </div>
+        <a href="/ejercicio2" class="item">
+            <span class="simbolo" aria-hidden="true">&times;</span>
+            <span class="texto">
+                <strong>Tabla de multiplicar</strong>
+                <small>Genera la tabla de cualquier número, del 1 al 10.</small>
+            </span>
         </a>
 
-        <a href="/ejercicio3" class="boton-menu">
-            <div class="icono">🎯</div>
-            <div>
-                <span>Ejercicio 3</span>
-                <small>Jugar a adivinar un número entre 1 y 100</small>
-            </div>
+        <a href="/ejercicio3" class="item">
+            <span class="simbolo" aria-hidden="true">?</span>
+            <span class="texto">
+                <strong>Adivina el número</strong>
+                <small>Encuentra el número secreto entre 1 y 100.</small>
+            </span>
         </a>
+    </nav>
 
-        <div class="footer">Arquitectura orientada a objetos</div>
-    </main>
-</body>
-</html>
+    <footer class="pie">Python &middot; Flask &middot; PostgreSQL</footer>
+</main>
+{% endblock %}

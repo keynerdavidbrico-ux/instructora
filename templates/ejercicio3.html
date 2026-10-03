@@ -1,31 +1,27 @@
-<!DOCTYPE html>
-<html lang="es">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Ejercicio 3 - Adivina el número</title>
-    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-</head>
-<body>
-    <main class="ejercicio">
-        <a href="/" class="volver">← Volver al menú</a>
-        <span class="badge">Ejercicio 3</span>
-        <h1>Adivina el número</h1>
-        <p>He guardado un número secreto entre 1 y 100. Intenta adivinarlo.</p>
+{% extends "base.html" %}
+{% block titulo %}Adivina el número{% endblock %}
 
-        <form method="POST" class="formulario">
-            <label for="numero">Tu número:</label>
-            <input type="number" id="numero" name="numero" required>
-            <button type="submit">Adivinar</button>
-        </form>
+{% block contenido %}
+<main class="hoja">
+    <a href="/" class="volver">&larr; Volver a los ejercicios</a>
+    <h1>Adivina el número</h1>
+    <p>Pensé un número entre 1 y 100. Te diré si el tuyo es mayor o menor.</p>
 
-        {% if resultado %}<div class="resultado">{{ resultado }}</div>{% endif %}
-        {% if tabla %}
-        <div class="tabla">
-            <h3>Resultado</h3>
-            {% for linea in tabla %}<div class="fila">{{ linea }}</div>{% endfor %}
+    <form method="POST" class="formulario">
+        <label for="numero">Tu número</label>
+        <div class="campo">
+            <input type="number" id="numero" name="numero" min="1" max="100" required autofocus>
+            <button type="submit">{% if acerto %}Jugar otra vez{% else %}Adivinar{% endif %}</button>
         </div>
-        {% endif %}
-    </main>
-</body>
-</html>
+    </form>
+
+    {% if aviso %}<div class="aviso" role="alert">{{ aviso }}</div>{% endif %}
+    {% if resultado %}
+    <div class="resultado {% if acerto %}ganaste{% endif %}" role="status">
+        {{ resultado }}
+        {% if acerto %}<small>Lo lograste en {{ intentos }} intento{{ '' if intentos == 1 else 's' }}. Escribe otro número para empezar una partida nueva.</small>{% endif %}
+    </div>
+    {% endif %}
+    {% if intentos and not acerto %}<p class="contador">Intentos en esta partida: {{ intentos }}</p>{% endif %}
+</main>
+{% endblock %}
